@@ -1,0 +1,385 @@
+---
+title: "R Data Types and Data Structures"
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  chunk_output_type: console
+---
+
+**Everything in R is an object**
+
+```{r}
+# Create an R object
+my_obj = 48
+```
+
+**Basic data types in R**:
+
+1.  Character
+2.  Numeric (real or decimal)
+3.  Integer
+4.  Logical
+5.  Complex
+
+```{r}
+# Create objects of simple data types
+my_char = 'a'
+print(my_char)
+
+my_int = 10L
+print(my_int)
+
+my_numeric = 10
+print(my_numeric)
+
+my_logic = TRUE
+print(my_logic)
+```
+
+**Data structures in R**:
+
+1.  Atomic vector #homogenous data tape whereas list is heterogeneous
+2.  List
+3.  Matrix
+4.  Data frame
+5.  Factor
+
+We will look at atomic vectors, also referred simply to as vectors, first. A vector is a collection of objects of the same data type.
+
+```{r}
+# Create a vector
+my_vec1 = c(1L, 2L, 3L)
+my_vec2 = 1:3 #generator approach
+my_vec3 = seq(from = 1, to = 3, by = 1) #from to iteration
+print(my_vec1)
+print(my_vec2)
+print(my_vec3)
+
+# Functions on objects
+length(my_vec1) #length of vector
+class(my_vec1) #type of vector
+# class(my_vec2)
+# class(my_vec3)
+# typeof(my_vec3)
+str(my_vec3) #type with structure(mainly used)
+
+# Access elements of a vector
+my_vec1[1]
+
+# Modify element of a vector
+my_vec1[1] = 10
+print(my_vec1)
+
+# Missing data
+my_vec4 = c(1, 2, NA, 4)
+print(my_vec4)
+is.na(my_vec4) #is true then returns false . if na then returns true. if sum thn "sum(is.na(my_vec4))". which is used to get the position of the NA-which(is.na(my_vec4))
+anyNA(my_vec4) #atleast one element of object is na.
+
+# Special values
+1/0 #infinite
+0/0 #not a number
+```
+
+**A list is a special type of a vector which can contain objects of possibly different data types**
+
+```{r}
+# Create an empty list
+my_list1 = list(5)
+print(my_list1)
+
+# Create a list with values
+my_list2 = list(1, 'Name', c('a', 'b', 'c')) #numeric, name,vector of c is accessed
+print(my_list2)
+
+# Assign names to slots of list
+names(my_list2) = c('first', 'second', 'third')
+str(my_list2)
+
+# Coerce a vector into a list
+list(my_vec1)
+```
+
+**Accessing and modifying elements of a list**
+
+```{r}
+# Access elements of a list
+my_list2[1]
+my_list2$first #$-accessing name of the slot
+
+# Modify elements of a list
+my_list2[1] = 10
+print(my_list2)
+```
+
+**A matrix is an atomic vector with one or two dimensions**
+
+```{r}
+# Create a matrix
+my_matrix1 = matrix(c(1,2,3,4,5,6), nrow = 3, ncol = 2) #default is column by column
+print(my_matrix1)
+
+my_matrix2 = matrix(c(1,2,3,4,5,6), nrow = 2, ncol = 3, byrow = TRUE) # byrow is a flag to make row by row
+print(my_matrix2)
+
+# Assign row and column names
+rownames(my_matrix2) = c('row1', 'row2')
+colnames(my_matrix2) = c('col1', 'col2', 'col3')
+str(my_matrix2)
+
+# Access elements of a matrix
+my_matrix2[1, 2] #my_matrix[1,]this means print from 1st row 1st object with all columns.
+```
+
+**A data frame is a list of lists with each sublist of same length; think of it as a rectangular list. A data frame is typically used to store data that are read from text/CSV files by retaining the underlying structure such as row names, column names etc. A data frame can also be created manually**
+
+```{r}
+# Create a dataframe manually
+ID = c('A', 'B', 'C')
+Age = c(21, 22, 20)
+Height = c(150, 160, 170)
+sData = data.frame(ID, Age, Height)
+
+# Assign names to the rows and columns of the data frame
+rownames(sData) = c('Ajith', 'John', 'Bob')
+colnames(sData) = c('ID', 'Age', 'Height')
+```
+
+**In-built functions on data frame**
+
+```{r}
+# Structure of the data frame
+str(sData) 
+
+# Print 1st five rows
+head(sData, 2)
+
+# Print last five rows
+tail(sData, 2)
+
+# Get the dimension of the data frame
+dim(sData)
+
+# Number of rows in the data frame
+nrow(sData)
+
+# Number of columns in the data frame
+ncol(sData)
+```
+
+**Accessing elements of a data frame**
+
+```{r}
+# Access a particular column
+sData$Age
+sData[['Age']]
+sData['Age']
+
+# Access a particular row
+sData['John', ]
+
+# Access multiple columns
+sData[c('ID', 'Age')]
+```
+
+**A factor is a vector that can contain only predefined values, and is used to store categorical data**
+
+```{r}
+# Create a factor for storing a list of genders
+gender = factor(c('Male', 'Male', 'Female', 'Female'))
+print(gender)
+
+# In-built functions on factors
+levels(gender)
+
+# Modify a gender
+gender[1] = 'Female'
+print(gender)
+```
+
+**Imagine a criminal appeals court consisting of five judges; let's call them** $A,B,C,D,$ and $E.$ The judges meet regularly to vote (independently, of course) on the fate of prisoners who have petitioned for a review of their convictions. The result of each of the court's deliberations is determined by a simple majority; for a petitioner to be granted or denied a new trial requires three or more votes. Based on long-term record keeping, it is known that $A$ votes correctly $95\%$ of the time; i.e., when $A$ votes to either uphold or to reverse the original conviction, he is wrong only $5\%$ of the time. Similarly, $B, C, D,$ and $E$ vote correctly $95\%,90\%,90\%,$ and $80\%$ of the time. (There are, of course, two different ways a judge can make a mistake. The judge may uphold a conviction, with new evidence later showing that the petitioner was in fact innocent. Or the judge may vote to reverse a conviction when in fact the petitioner is actually guilty, as determined by the result of a second conviction at the new trial.) Suppose we want to calculate the probability that the court, as an entity, makes an incorrect decision.
+
+```{r}
+p=matrix(nrow=5,ncol=2, c(0.95,0.95,0.9,0.9,0.8,0.05,0.05,0.1,0.1,0.2))
+print(p) #p[1,],p[,1]
+```
+Sampling Space
+```{r}
+s=c(1,0)
+```
+
+```{r}
+sample(s,size=1,prob=c(0.95,0.05))
+```
+
+```{r}
+sample(s,size=10,replace=TRUE,prob=c(0.1,0.9)) #replace=True is because should be true because it should replace and keep back so that next it counts size=10. if size=1 its fyn.chance of picking object from s.
+```
+
+```{r}
+sample(s,size=100,replace=TRUE,prob=p[1,])
+```
+
+For Loop
+```{r}
+for(j in c(1:5)){ #until (expression) is true do something
+  print(j)
+}
+```
+Numeric use
+```{r}
+numeric(5) #prints 0 five times
+```
+
+User defined function
+```{r}
+#function name=function(input to function){
+ #what the function does with the input
+#}
+  
+myfunc=function(data){ #data is the local object which is used proxy for results
+  return(sum(data)>3)
+}
+```
+
+```{r}
+results=c(1,1,1,0,0) #vector of numerical values
+sum(results)>3
+myfunc(results)
+```
+
+```{r}
+judgeResult=function(){
+  results=numeric(5)
+  for(j in c(1:4)){
+    results[j]=sample(s,size=1, prob=p[j,])
+  }
+  results[5]=results[1] #when judge 5 copies judge 1 thn incorrect decision rate is high.
+  return(results)
+}
+```
+
+```{r}
+judgeResult() #function call
+```
+
+
+```{r}
+replicate(10,judgeResult()) #replicate the 5 judges decision for 10times.
+```
+
+```{r}
+str(replicate(10,judgeResult())) #know the type
+```
+
+```{r}
+nsimulations=100000
+simulatedData=replicate(nsimulations,judgeResult()) #many times replicate
+```
+
+```{r}
+simulatedData[,1:10]
+```
+
+```{r}
+checkEvent=function(data){
+  return(sum(data)<3)
+}
+```
+
+```{r}
+checkEvent(simulatedData[,1])
+```
+
+```{r}
+apply(simulatedData,2,checkEvent) #apply to simulatedData the check event function.Here 2 means column by column. If 1 thn row by row. 
+#result false is the result is false for first row. That is the court have given correct decision.
+```
+
+```{r}
+sum(apply(simulatedData,2,checkEvent))
+```
+
+```{r}
+mean(c(1,2,3,4,5))
+```
+
+```{r}
+mean(apply(simulatedData,2,checkEvent))*100 #court has come into incorrect decision
+```
+
+
+BIRTHDAY PROBLEM
+```{r}
+b=matrix(nrow=5,ncol=2, c(0.95,0.95,0.9,0.9,0.8,0.05,0.05,0.1,0.1,0.2))
+print(b) #p[1,],p[,1]
+```
+
+```{r}
+s=c(1,0)
+```
+
+```{r}
+sample(s,size=1,prob=c(0.95,0.05))
+```
+
+```{r}
+myfunc=function(data){ #data is the local object which is used proxy for results
+  return(sum(data)>2)
+}
+```
+
+```{r}
+results=c(1,1,1,0,0) #vector of numerical values
+sum(results)>2
+myfunc(results)
+
+```
+
+```{r}
+judgeResult=function(){
+  results=numeric(5)
+  for(j in c(1:5)){
+    results[j]=sample(s,size=1, prob=b[j,])
+  }
+  #when judge 5 copies judge 1 thn incorrect decision rate is high.
+  return(results)
+}
+```
+
+```{r}
+judgeResult() #function call
+```
+
+```{r}
+replicate(10,judgeResult())
+```
+
+```{r}
+nsimulations=365
+simulatedData=replicate(nsimulations,judgeResult()) 
+```
+
+```{r}
+simulatedData[,1:10]
+```
+
+```{r}
+checkEvent=function(data){
+  return(sum(data)<2)
+}
+```
+
+```{r}
+checkEvent(simulatedData[,1])
+```
+
+```{r}
+apply(simulatedData,2,checkEvent) 
+```
+
+```{r}
+mean(apply(simulatedData,2,checkEvent))
+```
+

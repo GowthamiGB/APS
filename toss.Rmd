@@ -1,0 +1,51 @@
+---
+title: "Practice with Dataframes"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+editor_options:
+  chunk_output_type: inline
+---
+####Probability of getting 3 heads
+```{r}
+s=c('1','0')
+s
+```
+####As two columns are needed for heads and tails
+```{r}
+p=matrix(nrow=1,ncol=2,c(0.5,0.5))
+p
+```
+####As 10 coins are tossed.loop is from 1:10
+```{r}
+simTrail=function(){
+  results = numeric(10)
+  for(i in c(1:10)){
+    results[i] = sample(s, size = 1,replace = TRUE, prob = p[1,])
+  }
+  return(results)
+}
+```
+
+```{r}
+nsimulations=10000
+simulatedData=replicate(nsimulations,simTrail())
+```
+
+####head should be 3 times
+```{r}
+checkEvent=function(data){
+ return(sum(data=="1")==3)
+}
+```
+
+####checking probability of getting heads 3 times in 10 toss
+```{r}
+sum(apply(simulatedData,2,checkEvent))
+mean(apply(simulatedData,2,checkEvent))
+```
+```{r}
+(choose(10,3)/(2^10))
+```
+

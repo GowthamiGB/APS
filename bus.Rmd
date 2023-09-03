@@ -1,0 +1,55 @@
+---
+title: "R Data Types and Data Structures"
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+Entering_bus=function(){
+  return(sample(c(0,1,2),size=1,prob=c(0.50,0.40,0.10)))
+}
+```
+
+```{r}
+Exiting_bus=function(number_prev){
+  return(sum(sample(c(1,0),size=number_prev,replace=TRUE,prob=c(0.20,0.80))))
+}
+```
+
+####Code to calculate using simulation the probability that the bus is empty after visiting the 10th stop
+```{r}
+bus_10Passenger=function(){
+  bus_seat=c()
+  for (j in c(1:10)){
+    if(j==1){
+      bus_seat=c(bus_seat,Entering_bus())       #only considering in first stop
+    }
+    else if(bus_seat[j-1]==0){        
+      bus_seat=c(bus_seat,Entering_bus())  #no one entered in last stop so consider entry not exit
+    }
+    else{                      
+      bus_seat=c(bus_seat,bus_seat[j-1]+Entering_bus()-Exiting_bus(bus_seat[j-1]))
+    }
+  }
+  return(bus_seat)
+}
+```
+
+####simulating 100000 people entering and exiting bus
+```{r}
+nsimulations=100000
+simulatedData=replicate(nsimulations,bus_10Passenger())
+```
+
+####zero entries in 10th stop
+```{r}
+table(simulatedData[10,])
+```
+
+```{r}
+sum(simulatedData[10,]==0)/length(simulatedData[10,])
+```
+

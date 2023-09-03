@@ -1,0 +1,98 @@
+---
+title: "Practice with Dataframes"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r}
+#to read data from csv file
+bat=read.csv('Data/bats.csv')
+str(bat)
+```
+
+```{r}
+#the chance of a random bat carrying Ebola virus=calculating mean of ebola being true
+mean(bat$Ebola=="TRUE")
+mean(bat$Ebola=="TRUE")*100
+```
+
+```{r}
+#for each gene calculating the likelihood that is expressed in a random bat=calculating mean of gene-1 being true
+mean(bat$Gene.1=="TRUE")
+mean(bat$Gene.1=="TRUE")*100
+```
+
+```{r}
+#for each gene calculating the likelihood that is expressed in a random bat=calculating mean of gene-1 being true
+mean(bat$Gene.2=="TRUE")
+mean(bat$Gene.2=="TRUE")*100
+```
+
+```{r}
+#for each gene calculating the likelihood that is expressed in a random bat=calculating mean of gene-1 being true
+mean(bat$Gene.3=="TRUE")
+mean(bat$Gene.3=="TRUE")*100
+```
+
+```{r}
+#for each gene calculating the likelihood that is expressed in a random bat=calculating mean of gene-1 being true
+mean(bat$Gene.4=="TRUE")
+mean(bat$Gene.4=="TRUE")*100
+```
+
+```{r}
+#for each gene calculating the likelihood that is expressed in a random bat=calculating mean of gene-1 being true
+mean(bat$Gene.5=="TRUE")
+mean(bat$Gene.5=="TRUE")*100
+```
+```{r}
+#is the presence or absence of any of the genes indicative of a random bat potentially carrying Ebola virus=conditional probability of bat with gene=true and carrying ebola virus.i.e ebola=true
+mean(bat[bat$Gene.1=="TRUE",]$Ebola=="TRUE")
+mean(bat[bat$Gene.1=="TRUE",]$Ebola=="TRUE")*100
+```
+```{r}
+#is the presence or absence of any of the genes indicative of a random bat potentially carrying Ebola virus=conditional probability of bat with gene=true and carrying ebola virus.i.e ebola=true
+mean(bat[bat$Gene.2=="TRUE",]$Ebola=="TRUE")
+mean(bat[bat$Gene.2=="TRUE",]$Ebola=="TRUE")*100
+```
+```{r}
+#is the presence or absence of any of the genes indicative of a random bat potentially carrying Ebola virus=conditional probability of bat with gene=true and carrying ebola virus.i.e ebola=true
+mean(bat[bat$Gene.3=="TRUE",]$Ebola=="TRUE")
+mean(bat[bat$Gene.3=="TRUE",]$Ebola=="TRUE")*100
+```
+```{r}
+#is the presence or absence of any of the genes indicative of a random bat potentially carrying Ebola virus=conditional probability of bat with gene=true and carrying ebola virus.i.e ebola=true
+mean(bat[bat$Gene.4=="TRUE",]$Ebola=="TRUE")
+mean(bat[bat$Gene.4=="TRUE",]$Ebola=="TRUE")*100
+```
+```{r}
+#is the presence or absence of any of the genes indicative of a random bat potentially carrying Ebola virus=conditional probability of bat with gene=true and carrying ebola virus.i.e ebola=true
+mean(bat[bat$Gene.5=="TRUE",]$Ebola=="TRUE")
+mean(bat[bat$Gene.5=="TRUE",]$Ebola=="TRUE")*100
+```
+```{r}
+((mean(bat[bat$Gene.1=="TRUE",]$Ebola=="TRUE")-mean(bat$Ebola=="TRUE"))/mean(bat$Ebola))
+```
+
+
+```{r}
+((mean(bat[bat$Gene.2=="TRUE",]$Ebola=="TRUE")-mean(bat$Ebola=="TRUE"))/mean(bat$Ebola))
+```
+```{r}
+((mean(bat[bat$Gene.3=="TRUE",]$Ebola=="TRUE")-mean(bat$Ebola=="TRUE"))/mean(bat$Ebola))
+```
+```{r}
+((mean(bat[bat$Gene.4=="TRUE",]$Ebola=="TRUE")-mean(bat$Ebola=="TRUE"))/mean(bat$Ebola))
+```
+
+
+```{r}
+((mean(bat[bat$Gene.5=="TRUE",]$Ebola=="TRUE")-mean(bat$Ebola=="TRUE"))/mean(bat$Ebola))
+```
+
+
+
