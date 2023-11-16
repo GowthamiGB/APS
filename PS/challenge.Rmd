@@ -1,0 +1,43 @@
+---
+title: "challenging_problem"
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  chunk_output_type: inline
+---
+```{r}
+#A company sells LED bulbs in packages of 20 for 25$. From past records it knows that a bulb will be defective with probability 0.01. The comapany gives full refund if a customer finds more than 1 defective bulb in a pack. If company sells 100 packs how much should it expect to refund?
+
+#Binomial random variable
+n=20
+p=0.01
+#Probability of getting more than 1 defective bulb in a package = P(X>=2) or 1-P(X<2)
+p_new=1-pbinom(1,n,p)
+p_new
+```
+
+```{r}
+n=100#Total number of packages
+#Probability of getting defective package=p_new
+#Expected value=n*p
+#Expected refund=25*n*p
+25*n*p_new
+```
+
+```{r}
+#During assembly a product is equipped with 5 control switches each of which has probability of 0.04 being defective. What is the probability that 2 defective switches encountered before 5 non defective?
+r=2
+j=7 #negativeBinom
+p=0.04 
+dnbinom(j-r,r,p)
+```
+
+```{r}
+#Suppose that class of 50 students appear for a test and 41 out of 50 passed the test while the remaining 9 students have failed the test. Find the probability that in a group of 10 students selected at random none of them have failed the test and atleast 3 students have failed the test
+nsuccess=9
+nfailure=41 #hyperGeom
+n=10
+dhyper(0,nsuccess,nfailure,n)
+1-sum(dhyper(c(0:2),nsuccess,nfailure,n))
+```

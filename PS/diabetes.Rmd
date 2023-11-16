@@ -1,0 +1,68 @@
+---
+title: "Graphing with ggplot"
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+diabetesData=read.csv('Data/diabetes.csv',header=TRUE)
+#head(diabetesData)
+print(diabetesData)
+str(diabetesData)
+```
+
+```{r}
+nrow(diabetesData)
+ncol(diabetesData)
+rownames(diabetesData)
+colnames(diabetesData)
+```
+
+```{r}
+diabetesData$Glucose
+str(diabetesData$Glucose)
+```
+
+```{r}
+p=ggplot(data=diabetesData)
+p
+```
+
+```{r}
+p=ggplot(data=diabetesData)+
+  geom_point(aes(x=SkinThickness,y=BMI),color='blue')
+p
+```
+
+```{r}
+p=ggplot(data=diabetesData)+
+  geom_point(aes(x=Age,y=BloodPressure),color='red')
+p
+```
+
+```{r}
+p=ggplot(data=diabetesData)+
+  geom_point(aes(x=Glucose,y=Insulin,color=DiabetesPedigreeFunction))
+p
+```
+
+```{r}
+p=ggplot(data=diabetesData)+
+  geom_boxplot(aes(x=Age,y=BloodPressure))
+p
+```
+
+```{r}
+p=ggplot(data=diabetesData)+
+  geom_boxplot(aes(x=SkinThickness,y=BMI),color='blue')
+p
+```
+
+

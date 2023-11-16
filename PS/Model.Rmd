@@ -1,0 +1,48 @@
+---
+title: "Graphing with ggplot"
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+s_appointment=
+```
+
+```{r}
+p_morning=
+p_afternoon=
+p_appointment=matrix(nrow=2,ncol=2,c(1-p_morning, , , ),byrow=TRUE)
+```
+
+```{r}
+s_software=c( , )
+```
+
+```{r}
+p_software=matrix(, , ,byrow=TRUE)
+```
+
+```{r}
+salesResult=function(){
+  result=numeric(2)
+  for (j in c(1:2)){
+    result[j]=sample(,size=1,replace=TRUE,prob=p_appointment[,])
+  }
+  earnings=ifelse(result[1]==1,sample(,size=1,replace=TRUE,prob=p_software[,])0)+ifelse(result[2]==1, , )
+  return()
+  }
+```
+
+
+```{r}
+nsimulations=1e5
+simulatedData=replicate(nsimulations,)
+```
+
+```{r}
+mean(simulatedData==)
+```
+

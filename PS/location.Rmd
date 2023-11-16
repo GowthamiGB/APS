@@ -1,0 +1,58 @@
+---
+title: "Graphing with ggplot"
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  chunk_output_type: console
+---
+
+
+```{r}
+#c(1:6)
+```
+```{r}
+#p=matrix(c(1:6),nrow=2, ncol=3, byrow=TRUE)
+#p
+```
+
+```{r}
+#L=matrix(c(7:12), nrow=2, ncol=3, byrow=TRUE)
+#L
+```
+```{r}
+#L*p  #Hadamard product
+```
+```{r}
+#sum(L*p)
+```
+```{r}
+#L[1,1]*p[1,1]/sum(L*p)
+```
+```{r}
+p=matrix(nrow=4,ncol=4,
+         c(0.05,0.1,0.05,0.05,
+           0.05,0.1,0.05,0.05,
+           0.05,0.05,0.1,0.05,
+           0.05,0.05,0.1,0.05),
+         byrow=TRUE)
+p
+```
+```{r}
+L=matrix(nrow=4,ncol=4,
+         c(0.75,0.95,0.75,0.05,
+           0.05,0.75,0.95,0.75,
+           0.01,0.05,0.75,0.95,
+           0.01,0.01,0.05,0.75),
+         byrow=TRUE)
+L
+```
+
+```{r}
+sum(L*p)
+```
+
+```{r}
+(L*p)/sum(L*p)
+```
+
